@@ -6,12 +6,10 @@
             [template.util :as util]
             [template.config :as config]))
 
-
 (defn pg-db [config]
   {:dbtype "postgresql"
    :dbname (:name config)
    :user "postgres"})
-
 
 (defrecord Db [db db-config]
   c/Lifecycle
@@ -24,7 +22,18 @@
     (println ";; [Db] Stopping database")
     component))
 
-
 (defn new-db
   [config]
   (map->Db {:db-config config}))
+
+(defn element [db table id]
+  (first (j/query db [(str "SELECT * FROM " (name table) " WHERE id=?") id])))
+
+(defn all [db table]
+  (j/query db [(str "SELECT * FROM " (name table))]))
+
+(defn all-where [db table clause]
+  (j/query db [(str "SELECT * FROM " (name table) " WHERE " clause)]))
+
+(defn update [db table update-map id]
+  (j/update! db table update-map ["id=?" id]))

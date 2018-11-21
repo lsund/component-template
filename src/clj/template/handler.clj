@@ -3,18 +3,13 @@
   (:require
    [compojure.route :as r]
    [compojure.core :refer [routes GET POST ANY]]
-
-
    [ring.util.response :refer [redirect]]
    [ring.middleware
     [defaults :refer [site-defaults wrap-defaults]]
     [keyword-params :refer [wrap-keyword-params]]
     [params :refer [wrap-params]]]
-
-   ;; Logging
    [taoensso.timbre :as logging]
    [taoensso.timbre.appenders.core :as appenders]
-
    [template.db :as db]
    [template.util :as util]
    [template.render :as render]))
