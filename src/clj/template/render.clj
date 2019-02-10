@@ -1,5 +1,5 @@
 (ns template.render
-  "Namespace for rendering hiccup"
+  "Namespace for rendering views"
   (:require
    [template.db :as db]
    [taoensso.timbre :as logging]

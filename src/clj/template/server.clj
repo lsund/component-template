@@ -6,7 +6,7 @@
 (defrecord Server [app port server]
   c/Lifecycle
   (start [component]
-    (println ";; [Server] Starting HttpKit on port" port)
+    (println "Starting HttpKit on port" port)
     (if server
       component
       (do
@@ -17,7 +17,7 @@
     (if-not server
       component
       (do
-        (println ";; [Server] Stopping HttpKit")
+        (println "Stopping HttpKit")
         (println ";; comp: " component)
         (server :timeout 10)
         (assoc component :server nil)))))
