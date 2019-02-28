@@ -1,10 +1,7 @@
 (defproject template "0.1.0-SNAPSHOT"
   :description "TODO"
   :url "https://github.com/lsund/template"
-
-
   :min-lein-version "2.7.0"
-
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [org.clojure/clojurescript "1.9.946"]
                  [org.clojure/core.async  "0.4.474"]
@@ -20,26 +17,17 @@
                  [com.taoensso/timbre "4.10.0"]
                  [io.aviso/pretty "0.1.34"]
                  [clj-time/clj-time "0.15.0"]]
-
   :plugins [[lein-figwheel "0.5.15"]
             [lein-cljsbuild "1.1.7" :exclusions [[org.clojure/clojure]]]
             [io.aviso/pretty "0.1.34"]]
-
   :source-paths ["src/clj" "src/cljs"]
-
-  :ring
-  {:handler template.core/new-handler}
-
-  :main
-  template.main
-
+  :ring {:handler template.core/new-handler}
+  :main template.main
   :cljsbuild {:builds
               [{:id           "dev"
                 :source-paths ["src/cljs"]
-
                 :figwheel {:on-jsload "template.core/on-js-reload"
                            :open-urls ["http://localhost:3449/index.html"]}
-
                 :compiler {:main                 template.core
                            :asset-path           "js/compiled/out"
                            :output-to            "resources/public/js/compiled/template.js"
@@ -52,13 +40,9 @@
                                :main          template.core
                                :optimizations :advanced
                                :pretty-print  false}}]}
-
-  :figwheel
-  {:css-dirs ["resources/public/css"]}
-
-  :repl-options
-  {:init-ns user}
-
+  :figwheel {:css-dirs ["resources/public/css"]}
+  :repl-options {:init-ns user
+                 :timeout 120000}
   :profiles {:dev {:dependencies  [[binaryage/devtools "0.9.9"]
                                    [figwheel-sidecar "0.5.15"]
                                    [com.cemerick/piggieback "0.2.2"]]
