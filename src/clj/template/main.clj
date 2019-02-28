@@ -3,7 +3,7 @@
   (:require
    [template.config :as config]
    [com.stuartsierra.component :as c]
-   [trainer.core :refer [new-system]])
+   [template.core :refer [new-system]])
   (:gen-class))
 
 (defn -main [& args]
