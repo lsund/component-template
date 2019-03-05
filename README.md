@@ -5,12 +5,12 @@ stuartsierra/component
 
 # Setup and Configure
 
-Assume your new project is to be called PROJECT_NAME
+Assume your new project is to be called `PROJECT_NAME`
 
-1. In every file, the string "template" should be changed to PROJECT_NAME.
-2. rename src/{clj,cljs}/template to src/{clj,cljs}/PROJECT_NAME
+1. In every file, the string `template` should be changed to `PROJECT_NAME`.
+2. rename `src/{clj,cljs}/template` to `src/{clj,cljs}/PROJECT_NAME`
 3. Launch a Clojure repl
-4. Optionally specify the database configuration under [:db :name]
+4. Optionally specify the database configuration under `[:db :name]`
 5. Configure new process:
     - Port
     - Database name
