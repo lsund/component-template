@@ -1,26 +1,8 @@
 (ns user
-  (:require
-   [figwheel-sidecar.repl-api :as f]
-   [clojure.tools.namespace.repl :as tools]
-   [com.stuartsierra.component :as c]
-   [template.config :as config]
-   [template.core :refer [new-system]]
-   ,,,))
-
-(defn fig-start
-  "This starts the figwheel server and watch based auto-compiler."
-  []
-  (f/start-figwheel!))
-
-(defn fig-stop
-  "Stop the figwheel server and watch based auto-compiler."
-  []
-  (f/stop-figwheel!))
-
-(defn cljs-repl
-  "Launch a ClojureScript REPL that is connected to your build and host environment."
-  []
-  (f/cljs-repl))
+  (:require [clojure.tools.namespace.repl :as tools]
+            [com.stuartsierra.component :as c]
+            [template.config :as config]
+            [template.core :refer [new-system]]))
 
 (defn new-dev-system [] (new-system (config/load)))
 
@@ -41,5 +23,5 @@
 
 (defn system-restart! []
   (system-stop!)
-  ;; (tools/refresh :after 'user/system-go!)  ; Does not work because sente is failing
+  (tools/refresh :after 'user/system-go!)
   (system-go!))

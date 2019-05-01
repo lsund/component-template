@@ -1,29 +1,26 @@
 (ns template.util
   "Namespace for utilities"
-  (:require [clojure.string :as s]))
+  (:require [clojure.string :as string]
+            [clj-time.core :as clj-time]
+            [clj-time.format :as format])
+  (:import [java.time LocalDateTime LocalDate]
+           [java.sql Date Timestamp]))
 
-(defn stringify [k] (-> k name s/capitalize))
+(defn stringify [k] (-> k name string/capitalize))
 
-(defn parse-int [s] (Integer. (re-find  #"\d+" s)))
+(defn parse-int [s]
+  {:pre [(or (integer? s) (re-matches #"-?\d+" s))]}
+  (if (integer? s)
+    s
+    (Integer/parseInt s)))
 
-(def date-string "yyyy-MM-dd")
+(defn parse-float [s]
+  {:pre [(or (float? s) (re-matches #"(-?\d+\.\d+|-?\d+)" s))]}
+  (try
+    (Double/parseDouble s)))
 
-(defn string->localdate [s]
-  (java.time.LocalDate/parse s (java.time.format.DateTimeFormatter/ofPattern date-string)))
+(defn format-date [date]
+  (format/unparse (format/formatters :date) date))
 
-(defn ->localdate
-  [date]
-  (cond (= (type date) java.sql.Timestamp) (.. date toLocalDateTime toLocalDate)
-        (= (type date) java.sql.Date) (.toLocalDate date)
-        (= (type date) java.time.LocalDate) date
-        (= (type date) java.time.LocalDateTime) date
-        (= (type date) java.lang.String) (string->localdate date)
-        (nil? date) (throw (Exception.  "Nil argument to localdate"))
-        :default (throw (Exception. (str "Unknown date type: " (type date))))))
-
-(defn fmt-date [d]
-  (.format (java.time.format.DateTimeFormatter/ofPattern date-string)
-           (->localdate d)))
-
-
-(defn fmt-today [] (fmt-date (java.time.LocalDateTime/now)))
+(defn format-today []
+  (format-date (clj-time/now)))

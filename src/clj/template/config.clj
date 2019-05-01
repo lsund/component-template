@@ -1,7 +1,6 @@
 (ns template.config
-  "Namespace for loading configuration"
+  "Configuration handling"
   (:require [clojure.edn :as edn]))
 
-(defn load
-  []
+(defn read []
   (edn/read-string (slurp "resources/edn/config.edn")))

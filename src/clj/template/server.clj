@@ -1,16 +1,15 @@
 (ns template.server
-  "Namespace for defining the server component"
-  (:require [com.stuartsierra.component :as c]
+  "Server Component"
+  (:require [com.stuartsierra.component :as component]
             [org.httpkit.server :refer [run-server]]))
 
 (defrecord Server [app port server]
-  c/Lifecycle
+  component/Lifecycle
   (start [component]
-    (println "Starting HttpKit on port" port)
+    (println "[Server] Starting HttpKit on port" port)
     (if server
       component
       (do
-        (println ";; comp: " component)
         (->> (run-server (:handler app) {:port port})
              (assoc component :server)))))
   (stop [component]
@@ -18,7 +17,6 @@
       component
       (do
         (println "Stopping HttpKit")
-        (println ";; comp: " component)
         (server :timeout 10)
         (assoc component :server nil)))))
 

@@ -1,10 +1,7 @@
 (ns template.db
-  "Namespace for database interfacing"
-  (:require [clojure.java.jdbc :as j]
-            [com.stuartsierra.component :as c]
-            [taoensso.timbre :as timbre]
-            [template.util :as util]
-            [template.config :as config]))
+  "Database component"
+  (:require [clojure.java.jdbc :as jdbc]
+            [com.stuartsierra.component :as c]))
 
 (defn pg-db [config]
   {:dbtype "postgresql"
@@ -13,27 +10,36 @@
 
 (defrecord Db [db db-config]
   c/Lifecycle
-
   (start [component]
-    (println ";; [Db] Starting database")
+    (println "[Db] Starting database")
     (assoc component :db (pg-db db-config)))
-
   (stop [component]
-    (println ";; [Db] Stopping database")
+    (println "[Db] Stopping database")
     component))
 
-(defn new-db
-  [config]
+(defn new-db [config]
   (map->Db {:db-config config}))
 
-(defn element [db table id]
-  (first (j/query db [(str "SELECT * FROM " (name table) " WHERE id=?") id])))
+(defn row [db table id]
+  (first (jdbc/query db [(str "SELECT * FROM " (name table) " WHERE id=?") id])))
+
+(defn value [db table column id]
+  (-> db
+      (jdbc/query [(str "SELECT " (name column) " from " (name table) " where id = ?") id])
+      first
+      column))
 
 (defn all [db table]
-  (j/query db [(str "SELECT * FROM " (name table))]))
+  (jdbc/query db [(str "SELECT * FROM " (name table))]))
 
 (defn all-where [db table clause]
-  (j/query db [(str "SELECT * FROM " (name table) " WHERE " clause)]))
+  (jdbc/query db [(str "SELECT * FROM " (name table) " WHERE " clause)]))
 
-(defn update [db table update-map id]
-  (j/update! db table update-map ["id=?" id]))
+(defn update-row [db table update-map id]
+  (jdbc/update! db table update-map ["id=?" id]))
+
+(defn delete-row [db table id]
+  (jdbc/delete! db table ["id=?" id]))
+
+(defn insert-row [db table insert-map]
+  (jdbc/insert! db table insert-map))

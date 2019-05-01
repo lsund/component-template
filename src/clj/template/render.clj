@@ -10,7 +10,7 @@
 
 
 (defn index
-  [config]
+  [db-data config]
   (html5
    [:head
     [:title "Fixme"]]

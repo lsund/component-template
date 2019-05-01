@@ -1,11 +1,10 @@
 (ns template.main
   "Namespace for running the program once"
-  (:require
-   [template.config :as config]
-   [com.stuartsierra.component :as c]
-   [template.core :refer [new-system]])
-  (:gen-class))
+  (:gen-class)
+  (:require [com.stuartsierra.component :as c]
+            [template.config :as config]
+            [template.core :refer [new-system]]))
 
 (defn -main [& args]
-  (c/start (new-system (config/load)))
+  (c/start (new-system (config/read)))
   (println "Server up and running"))
