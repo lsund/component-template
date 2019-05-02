@@ -6,5 +6,5 @@
             [template.core :refer [new-system]]))
 
 (defn -main [& args]
-  (c/start (new-system (config/read)))
+  (c/start (new-system (config/from-file)))
   (println "Server up and running"))

@@ -4,7 +4,7 @@
             [template.config :as config]
             [template.core :refer [new-system]]))
 
-(defn new-dev-system [] (new-system (config/load)))
+(defn new-dev-system [] (new-system (config/from-file)))
 
 (defonce system nil)
 

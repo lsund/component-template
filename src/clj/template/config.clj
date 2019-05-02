@@ -2,5 +2,5 @@
   "Configuration handling"
   (:require [clojure.edn :as edn]))
 
-(defn read []
+(defn from-file []
   (edn/read-string (slurp "resources/edn/config.edn")))
