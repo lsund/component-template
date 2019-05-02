@@ -26,8 +26,10 @@ projectname=$(echo $(basename $(pwd)))
 
 echo "Renaming src/{clj,cljs}/template to $projectname"
 
-mv src/clj/template src/clj/$projectname
-mv src/cljs/template src/cljs/$projectname
+underscored_projectname=$(dash-to-underscore $projectname)
+
+mv src/clj/template src/clj/$underscored_projectname
+mv src/cljs/template src/cljs/$underscored_projectname
 
 echo "Changing git remote url"
 
