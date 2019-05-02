@@ -1,5 +1,9 @@
 #!/bin/zsh
 
+
+echo "Deleting redundant git repository"
+mv .git ~/.trash/1K
+
 PORTS_FILE=~/.ports
 
 CSS_DIR=resources/public/css/
@@ -57,3 +61,4 @@ done
 
 echo "Done. Try starting up the repl, server and access localhost:$new_portnum"
 echo "The next step could be to create a database with $ createdb $projectname"
+echo "Or possibly initializing a git resository"
