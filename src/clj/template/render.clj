@@ -1,16 +1,9 @@
 (ns template.render
   "Namespace for rendering views"
-  (:require
-   [template.db :as db]
-   [taoensso.timbre :as logging]
-   [hiccup.form :refer [form-to]]
-   [hiccup.page :refer [html5 include-css include-js]]
-   [template.util :as util]
-   [template.html :as html]))
+  (:require [hiccup.page :refer [html5 include-css include-js]]))
 
 
-(defn index
-  [db-data config]
+(defn index [params]
   (html5
    [:head
     [:title "Fixme"]]

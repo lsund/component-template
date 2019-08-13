@@ -10,7 +10,7 @@
 (defn- app-routes [{:keys [db] :as config}]
   (routes
    (GET "/" []
-        (render/index {} config))
+        (render/index {:config config}))
    (route/resources "/")
    (route/not-found render/not-found)))
 
